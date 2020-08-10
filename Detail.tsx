@@ -44,9 +44,7 @@ export class LogoTitle extends React.Component<logoProps, State> {
     }
 }
 class Detail extends Component<Props, State> {
-    static navigationOptions = ({ navigation, route }) => {
-        console.log('navigation');
-        console.log(route.params);
+    static navigationOptions = ({ route }) => {
         const name = route.params.data.name as Name;
 
         return {
