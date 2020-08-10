@@ -76,7 +76,17 @@ class List extends Component<Props, State> {
         }
         this.setState({ loading: false })
     }
-
+    FlatListItemSeparator = () => {
+        return (
+            <View
+                style={{
+                    height: 1,
+                    width: "100%",
+                    backgroundColor: "#000",
+                }}
+            />
+        );
+    }
     render() {
         if (this.state.loading) {
             return (
@@ -91,16 +101,16 @@ class List extends Component<Props, State> {
         return (
             <>
                 <StatusBar barStyle="dark-content" />
-                <Header></Header>
                 <FlatList<Result> data={this.state.data}
                     keyExtractor={(item) => item.login.uuid}
+                    ItemSeparatorComponent={this.FlatListItemSeparator}
                     renderItem={({ item }) =>
                         <TouchableOpacity onPress={() => {
-                            this.props.navigation.navigate('Detail', { data: item });
+                            this.props.navigation.navigate('Detail', { data: item, title: item.name.first + ' ' + item.name.last });
 
                             //console.log('Tap me' + this.props.navigation);
                         }}>
-                            <View style={{ flexDirection: 'row', borderBottomWidth: 2, borderBottomColor: '#000000', height: 30, paddingLeft: 10, marginBottom: 10, backgroundColor: '#E0E0E0' }} >
+                            <View style={{ flexDirection: 'row', height: 30, marginVertical: 5, paddingLeft: 10, backgroundColor: '#E0E0E0' }} >
                                 <Text style={styles.text}>{item.name.title}</Text>
                                 <Text style={styles.text}>{item.name.first}</Text>
                                 <Text style={styles.text}>{item.name.last}</Text>

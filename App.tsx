@@ -14,9 +14,9 @@ const App = () => {
         <Stack.Screen
           name="List"
           component={List}
-          options={{ title: 'List Random User' }}
+          options={{ title: 'Randomize Me!' }}
         />
-        <Stack.Screen name="Detail" component={Detail} />
+        <Stack.Screen name="Detail" component={Detail} options={Detail.navigationOptions} />
       </Stack.Navigator>
       {/* Rest of your app code */}
     </NavigationContainer>

@@ -7,17 +7,19 @@ import {
     Text,
     Image,
 } from 'react-native';
-import { Result } from './User';
+import { Result, Name } from './User';
 import { NavigationScreenProp, NavigationState, NavigationRoute } from 'react-navigation';
 
 export interface Props {
     navigation: NavigationScreenProp<Navigation>;
     route: NavigationRoute,
-    data: Result
+    data: Result,
+    title: string;
 
 }
 interface NavigationParams {
     data: Result;
+    title: string;
 }
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
@@ -26,17 +28,35 @@ interface State {
     loading: boolean;
     data: Array<Result>
 }
-class Detail extends Component<Props, State> {
-    componentDidMount() {
+export interface logoProps {
+    name: string;
 
-        const user: Result = this.props.route.params.data;
+}
+export class LogoTitle extends React.Component<logoProps, State> {
+    render() {
+        return (
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.titleConst}>Randomize Me!</Text>
+                <Text style={{}}>{this.props.name}</Text>
 
-        this.props.navigation.setOptions({ title: 'Randomize me! ' + user.name.first + ' ' + user.name.last })
+            </View>
+        );
     }
+}
+class Detail extends Component<Props, State> {
+    static navigationOptions = ({ navigation, route }) => {
+        console.log('navigation');
+        console.log(route.params);
+        const name = route.params.data.name as Name;
+
+        return {
+            headerTitle: () => <LogoTitle name={name.first + ' ' + name.last}></LogoTitle>,
+        };
+    };
 
     render() {
 
-        console.log('detail2')
+
         const user: Result = this.props.route.params.data;
 
         return (
@@ -82,6 +102,11 @@ const styles = StyleSheet.create({
     {
         fontSize: 18,
         fontWeight: '500',
+    },
+    titleConst:
+    {
+        color: 'blue',
+        paddingHorizontal: 10,
     },
     line:
     {
