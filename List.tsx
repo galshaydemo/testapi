@@ -45,7 +45,7 @@ class List extends Component<Props, State> {
     }
     async oneCall(i: number) {
         try {
-            console.log("i=" + i.toString());
+
             await axios.get('https://randomuser.me/api')
                 .then((response) => {
                     this._data.push(response.data.results[0])

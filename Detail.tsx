@@ -32,23 +32,21 @@ export interface logoProps {
     name: string;
 
 }
-export class LogoTitle extends React.Component<logoProps, State> {
-    render() {
-        return (
-            <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.titleConst}>Randomize Me!</Text>
-                <Text style={{}}>{this.props.name}</Text>
+const logo = (name: string) => {
 
-            </View>
-        );
-    }
+    return (<View style={{ flexDirection: 'row' }}>
+        <Text style={styles.titleConst}>Randomize Me!</Text>
+        <Text style={{}}>{name}</Text>
+
+    </View>)
 }
+
 class Detail extends Component<Props, State> {
     static navigationOptions = ({ route }) => {
         const name = route.params.data.name as Name;
 
         return {
-            headerTitle: () => <LogoTitle name={name.first + ' ' + name.last}></LogoTitle>,
+            headerTitle: logo(name.first + ' ' + name.last),
         };
     };
 
