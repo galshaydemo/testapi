@@ -35,6 +35,7 @@ interface State {
     data: Array<Result>
 }
 class List extends Component<Props, State> {
+    _data = Array<Result>();
     constructor(props: any) {
         super(props);
         this.state = {
@@ -47,7 +48,7 @@ class List extends Component<Props, State> {
             console.log("i=" + i.toString());
             await axios.get('https://randomuser.me/api')
                 .then((response) => {
-                    this.state.data.push(response.data.results[0])
+                    this._data.push(response.data.results[0])
                     //this.setState({ data: this.state.data })
                     //console.log(myData.length)
                 }, (error) => {
@@ -65,11 +66,11 @@ class List extends Component<Props, State> {
     }
     async componentDidMount() {
         var myData = new Array();
-        for (let i: number = 0; this.state.data.length < 10; i++) {
+        for (let i: number = 0; this._data.length < 10; i++) {
             await this.oneCall(i);
 
         }
-        this.setState({ loading: false })
+        this.setState({ data: this._data, loading: false })
     }
     FlatListItemSeparator = () => {
         return (
