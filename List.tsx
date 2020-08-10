@@ -19,13 +19,10 @@ import {
     ActivityIndicator,
     TouchableOpacity,
 } from 'react-native';
-import Header from './Header'
 import axios from 'axios';
 
 import { Result } from './User';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
 
 export interface Props {
     navigation: any;
@@ -40,8 +37,6 @@ interface State {
 class List extends Component<Props, State> {
     constructor(props: any) {
         super(props);
-        console.log('aaaass')
-        console.log(this.props.navigation)
         this.state = {
             data: [],
             loading: true
