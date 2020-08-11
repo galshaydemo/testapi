@@ -84,17 +84,17 @@ class List extends Component<Props, State> {
             />
         );
     }
-    render() {
-        if (this.state.loading) {
-            return (
-                <>
-                    <StatusBar barStyle="dark-content" />
-                    <View style={[styles.container, styles.horizontal]}>
-                        <ActivityIndicator size="large" color="#00ff00" />
-                    </View>
-                    <SafeAreaView></SafeAreaView>
-                </>);
-        }
+    waiting = () => {
+        return (
+            <>
+                <StatusBar barStyle="dark-content" />
+                <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="#00ff00" />
+                </View>
+                <SafeAreaView></SafeAreaView>
+            </>);
+    }
+    show = () => {
         return (
             <>
                 <StatusBar barStyle="dark-content" />
@@ -121,6 +121,14 @@ class List extends Component<Props, State> {
             </>
 
         );
+    }
+
+    render() {
+        return (this.state.loading ? this.waiting() : this.show())
+
+
+
+
     }
 
 
