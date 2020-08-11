@@ -23,6 +23,7 @@ import axios from 'axios';
 
 import { Result } from './User';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Detail from './Detail';
 
 export interface Props {
     navigation: any;
@@ -102,7 +103,9 @@ class List extends Component<Props, State> {
                     ItemSeparatorComponent={this.FlatListItemSeparator}
                     renderItem={({ item }) =>
                         <TouchableOpacity onPress={() => {
-                            this.props.navigation.navigate('Detail', { data: item, title: item.name.first + ' ' + item.name.last });
+
+                            this.props.navigation.navigate('Detail',
+                                { data: item, title: item.name.first + ' ' + item.name.last });
 
                             //console.log('Tap me' + this.props.navigation);
                         }}>

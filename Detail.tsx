@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import 'react-native-gesture-handler';
-
+import { useRoute } from '@react-navigation/native';
 import {
     StyleSheet,
     View,
@@ -41,49 +41,43 @@ const logo = (name: string) => {
     </View>)
 }
 
-class Detail extends Component<Props, State> {
-    static navigationOptions = ({ route }) => {
-        const name = route.params.data.name as Name;
+const Detail = ({ navigation }) => {
+    const route = useRoute();
+    const user: Result = route.params.data;
 
-        return {
-            headerTitle: logo(name.first + ' ' + name.last),
-        };
-    };
+    useEffect(() => {
+        // Update the document title using the browser API
+        navigation.setOptions({ title: logo(user.name.first + ' ' + user.name.last) });
+    });
 
-    render() {
-
-
-        const user: Result = this.props.route.params.data;
-
-        return (
-            <View style={styles.container}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Image style={styles.logo} source={{ uri: user.picture.large }}
-                    ></Image>
-                </View>
-                <View style={styles.line}>
-                    <Text style={styles.text}>{user.name.first + ' ' + user.name.last}</Text>
-
-                </View>
-                <View style={styles.line}>
-                    <Text style={styles.text}>{user.location.street.number + ' ' + user.location.street.name}</Text>
-                    <Text style={styles.text}>{user.location.city + ' ' + user.location.country}</Text>
-
-                </View>
-                <View style={styles.line}>
-                    <Text style={styles.text}>{user.email}</Text>
-
-
-                </View>
-                <View style={styles.line}>
-                    <Text style={styles.text}>{user.cell}</Text>
-
-
-                </View>
+    return (
+        <View style={styles.container}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Image style={styles.logo} source={{ uri: user.picture.large }}
+                ></Image>
             </View>
-        )
+            <View style={styles.line}>
+                <Text style={styles.text}>{user.name.first + ' ' + user.name.last}</Text>
 
-    }
+            </View>
+            <View style={styles.line}>
+                <Text style={styles.text}>{user.location.street.number + ' ' + user.location.street.name}</Text>
+                <Text style={styles.text}>{user.location.city + ' ' + user.location.country}</Text>
+
+            </View>
+            <View style={styles.line}>
+                <Text style={styles.text}>{user.email}</Text>
+
+
+            </View>
+            <View style={styles.line}>
+                <Text style={styles.text}>{user.cell}</Text>
+
+
+            </View>
+        </View>
+    )
+
 }
 const styles = StyleSheet.create({
     container: {
@@ -112,4 +106,5 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     }
 });
+
 export default Detail
