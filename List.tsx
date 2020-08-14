@@ -18,10 +18,11 @@ import {
     FlatList,
     ActivityIndicator,
     TouchableOpacity,
+    ListRenderItem,
 } from 'react-native';
 import axios from 'axios';
 
-import { Result } from './User';
+import { Result, Name } from './User';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Detail from './Detail';
 import { useNavigation } from '@react-navigation/native';
@@ -47,31 +48,22 @@ const FlatListItemSeparator = () => {
         />
     );
 }
-
+const _renderItem = (result: { item: Result }) => {
+    return (<View style={{ flexDirection: 'row' }}>
+        <Text>{result.item.name.title}</Text>
+        <Text>{result.item.name.first}</Text>
+        <Text>{result.item.name.last}</Text>
+    </View>)
+};
 const show = (data: Array<Result>) => {
-    const navigation = useNavigation();
+
     return (
         <>
             <StatusBar barStyle="dark-content" />
             <FlatList<Result> data={data}
                 keyExtractor={(item) => item.login.uuid}
                 ItemSeparatorComponent={FlatListItemSeparator}
-                renderItem={({ item }) =>
-                    <TouchableOpacity onPress={() => {
-
-                        navigation.navigate('Detail',
-                            { data: item, title: item.name.first + ' ' + item.name.last });
-
-
-                    }}>
-
-
-                        <View style={{ flexDirection: 'row', height: 30, marginVertical: 5, paddingLeft: 10, backgroundColor: '#E0E0E0' }} >
-                            <Text style={styles.text}>{item.name.title}</Text>
-                            <Text style={styles.text}>{item.name.first}</Text>
-                            <Text style={styles.text}>{item.name.last}</Text>
-                        </View>
-                    </TouchableOpacity>}
+                renderItem={_renderItem}
             >
 
             </FlatList>
