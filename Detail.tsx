@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from 'react';
 import 'react-native-gesture-handler';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import {
     StyleSheet,
     View,
@@ -41,8 +41,9 @@ const logo = (name: string) => {
     </View>)
 }
 
-const Detail = ({ navigation }) => {
+const Detail = () => {
     const route = useRoute();
+    const navigation = useNavigation()
     const user: Result = route.params.data;
 
     useEffect(() => {

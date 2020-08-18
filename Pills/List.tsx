@@ -22,12 +22,9 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-import { Result, Name } from './User';
+import { Pill } from './Pill';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Detail from './Detail';
 import { useNavigation } from '@react-navigation/native';
-
-
 const FlatListItemSeparator = () => {
     return (
         <View
@@ -39,34 +36,33 @@ const FlatListItemSeparator = () => {
         />
     );
 }
-const _renderItem = (result: { item: Result, }, navigation: any) => {
+const _renderItem = (result: { item: Pill, }, navigation: any) => {
     //const navigation = useNavigation(); // navigation hook
     console.log(navigation)
-    return (<ListItem title={result.item.name.title + ' ' + result.item.name.first + ' ' + result.item.name.last}
-        leftAvatar={{ source: { uri: result.item.picture.thumbnail } }}
+    return (<ListItem title={result.item.name}
+        leftAvatar={{ source: { uri: 'http://10.0.2.2/images/' + result.item.pic } }}
         titleStyle={{ color: 'red' }}
-        rightSubtitle={result.item.phone}
         rightSubtitleStyle={{ fontSize: 10 }}
-        onPress={() => { navigation.navigate('Detail', { data: result.item }) }}
+        rightSubtitle={result.item.pic}
         bottomDivider
         chevron={{ color: 'white' }}
 
 
-        subtitle={<View><Text>{result.item.location.city}</Text>
-            <Text>{result.item.location.country}</Text>
+        subtitle={<View><Text>{result.item.description}</Text>
+
         </View>}>
 
 
     </ListItem>
     )
 };
-const show = (data: Array<Result>, navigation: any) => {
-
+const show = (data: Array<Pill>, navigation: any) => {
+    console.log(data)
     return (
         <>
             <StatusBar barStyle="dark-content" />
-            <FlatList<Result> data={data}
-                keyExtractor={(item) => item.login.uuid}
+            <FlatList<Pill> data={data}
+                keyExtractor={(item) => item.id.toString()}
                 ItemSeparatorComponent={FlatListItemSeparator}
                 renderItem={(item) => _renderItem(item, navigation)}
             >
@@ -90,17 +86,14 @@ const waiting = () => {
 
 
 
-const List = () => {
+const PillList = () => {
     const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(Array<Result>());
+    const [data, setData] = useState(Array<Pill>());
     const loadData = async () => {
         let localData = [];
-        for (var i: number = 0; localData.length < 10; i++) {
-            const response = await axios.get('https://randomuser.me/api');
-            localData.push(response.data.results[0])
-        }
-        setData(localData);
+        const response = await axios.get('http://10.0.2.2:3000/pills');
+        setData(response.data);
         setLoading(false)
     }
 
@@ -166,4 +159,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default List;
+export default PillList;

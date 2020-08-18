@@ -1,0 +1,23 @@
+[
+    {
+        "id": 2,
+        "name": "אנדלקס",
+        "times": 1,
+        "pic": "server/images/andlex.png",
+        "description": "לחץ דם"
+    },
+    {
+        "id": 4,
+        "name": "סטאטור",
+        "times": 1,
+        "pic": "server/images/stator.png",
+        "description": "כולסטרול"
+    },
+    {
+        "id": 5,
+        "name": "גלוקאמין",
+        "times": 1,
+        "pic": "server/images/glokamin.png",
+        "description": "סוכרת"
+    }
+]
